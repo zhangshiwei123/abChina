@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telphone=no, email=no, address=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="fonts/iconfont.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <img src="images/logo_ue2.png" alt="">
+            <a href="#">
+                <i class='icon iconfont icon-fangdajing'></i>
+                <i class='icon iconfont icon-gengduo-2'></i>
+            </a>
+        </header>
+        <div class="swiper-container container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="images/banner1.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="images/banner2.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="images/banner3.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="images/banner4.jpg" alt="">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="swiper-container text">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <h2>
+                        <p>
+                            <i class='icon iconfont icon icon-meiyoudingdan-01'></i>
+                            <span>全国----张世伟很帅哦！真的很帅💗</span>
+                    </h2>
+                    <h2>
+                        <p>
+                            <i class='icon iconfont icon icon-meiyoudingdan-01'></i>
+                            <span>全国----张世伟很帅哦！真的很帅💗</span>
+                        </p>
+                    </h2>
+                    <h2>
+                        <p>
+                            <i class='icon iconfont icon icon-meiyoudingdan-01'></i>
+                            <span>全国----张世伟很帅哦！真的很帅💗</span>
+                        </p>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-container text2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <h2>
+                        <p>
+                            <i class='icon iconfont icon icon-meiyoudingdan-01'></i>
+                            <span>全国----👆楼上说的对，真的是很帅呢❤️！</span>
+                        </p>
+                    </h2>
+                    <h2>
+                        <p>
+                            <i class='icon iconfont icon icon-meiyoudingdan-01'></i>
+                            <span>全国----👆楼上说的对，真的是很帅呢❤️！</span>
+                        </p>
+                    </h2>
+                    <h2>
+                        <p>
+                            <i class='icon iconfont icon icon-meiyoudingdan-01'></i>
+                            <span>全国----👆楼上说的对，真的是很帅呢❤️！</span>
+                        </p>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <h3>便携服务</h3>
+            <!--
+<nav>
+    <ul>
+        <li>
+            <img src="images/icon_1.png" alt="">
+            <span>haha</span>
+        </li>
+        <li>
+            <img src="images/icon_2.png" alt="">
+            <span>haha</span>
+        </li>
+        <li>
+            <img src="images/icon_3.png" alt="">
+            <span>haha</span>
+        </li>
+        <li>
+            <img src="images/icon_4.png" alt="">
+            <span>haha</span>
+        </li>
+        <li>
+            <img src="images/icon_5.png" alt="">
+            <span>haha</span>
+        </li>
+        <li>
+            <img src="images/icon_6.png" alt="">
+            <span>haha</span>
+        </li>
+        <li>
+            <img src="images/icon_7.png" alt="">
+            <span>haha</span>
+        </li>
+        <li>
+            <img src="images/icon_8.png" alt="">
+            <span>haha</span>
+        </li>
+    </ul>
+</nav>
+-->
+        </div>
+    </div>
+    <script src='js/swiper.min.js'></script>
+    <script src='js/jquery.min.js'></script>
+    <script>
+        var content = $('.content')
+        var mySwiper = new Swiper('.container', {
+            autoplay: 1200,
+            loop: true,
+            pagination: '.swiper-pagination'
+        })
+        var mySwiper = new Swiper('.text', {
+            autoplay: 2200,
+            loop: true,
+            direction: 'vertical'
+        })
+        var mySwiper = new Swiper('.text2', {
+            autoplay: 2000,
+            loop: true,
+            direction: 'vertical'
+        })
+
+        function ajax(obj, successCallback, errorCallback) {
+            var xml = new XMLHttpRequest()
+
+            xml.onreadystatechange = function() {
+                if (this.readyState !== 4) {
+                    return
+                }
+                if (this.status === 200) {
+
+                    successCallback(this.response)
+                } else {
+                    errorCallback(this.responseText)
+                }
+            }
+            xml.open(obj['method'], obj['url'], true)
+            xml.send(obj['data'])
+        }
+        //调用ajax
+        function user(id) {
+            ajax({
+                url: 'http://127.0.0.1:8008/abChina',
+                data: `id=${id}`,
+                method: 'GET'
+            }, function(result) { // => successCallback
+                getData(JSON.parse(result))
+            }, function(error) { // => errorCallback
+                console.log(error)
+            })
+        }
+        user()
+        //渲染数据
+        function getData(data) {
+            var str = ''
+
+            str += '<nav><ul>'
+            for (var i in data) {
+                str += `<li><img src='images/icon_${i*1+1}.png'><span>${data[i]['name']}</span></li> `
+            }
+            str += '</ul></nav>'
+            $('.content').append(str)
+        }
+
+    </script>
+
+</body>
+
+</html>
